@@ -10,9 +10,9 @@ export function MoviesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query');
 
-  function fetchMovies() {
+  function fetchMovies(q) {
     axios
-      .get(`${API_URL}/search/movie?query=${query}&api_key=${API_KEY}`)
+      .get(`${API_URL}/search/movie?query=${q}&api_key=${API_KEY}`)
       .then(res => {
         setMovies(res.data.results);
       })
@@ -22,7 +22,7 @@ export function MoviesPage() {
   }
 
   useEffect(() => {
-    fetchMovies();
+    fetchMovies(query);
   }, [query]);
 
   return (
