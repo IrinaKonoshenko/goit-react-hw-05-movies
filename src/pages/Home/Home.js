@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { API_KEY, API_URL } from 'utils/env';
 
-export function Home() {
+export function HomePage() {
   const [movies, setMovies] = useState([]);
 
   function fetchTrending() {

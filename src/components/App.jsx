@@ -1,6 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 
-import { Cast, Home, MovieDetails, Movies, Reviews } from '../pages';
+import {
+  CastPage,
+  HomePage,
+  MovieDetailsPage,
+  MoviesPage,
+  ReviewsPage,
+} from '../pages';
 import { Header } from './Header/Header';
 
 export const App = () => {
@@ -8,11 +14,11 @@ export const App = () => {
     <div>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/movies/:movieId" element={<MovieDetails />} />
-        <Route path="/movies/:movieId/cast" element={<Cast />} />
-        <Route path="/movies/:movieId/reviews" element={<Reviews />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/movies" element={<MoviesPage />} />
+        <Route path="/movies/:movieId" element={<MovieDetailsPage />} />
+        <Route path="/movies/:movieId/cast" element={<CastPage />} />
+        <Route path="/movies/:movieId/reviews" element={<ReviewsPage />} />
       </Routes>
     </div>
   );

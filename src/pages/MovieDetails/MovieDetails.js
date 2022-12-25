@@ -1,15 +1,13 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { MovieCard } from 'components/MovieCard/MovieCard';
 import { MovieNav } from 'components/MovieNav/MovieNav';
 
-export function MovieDetails() {
-  const { movieId } = useParams();
-
+export function MovieDetailsPage() {
   return (
     <div>
       <Link to="/">Go back</Link>
-      <MovieCard movieId={movieId} />
+      <MovieCard />
       <MovieNav />
     </div>
   );

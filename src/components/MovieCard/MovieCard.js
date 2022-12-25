@@ -2,8 +2,11 @@ import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { API_KEY, API_URL } from 'utils/env';
 import { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 
-export function MovieCard({ movieId }) {
+export function MovieCard() {
+  const { movieId } = useParams();
+
   const [movie, setMovie] = useState(null);
 
   const fetchMovie = useCallback(() => {
