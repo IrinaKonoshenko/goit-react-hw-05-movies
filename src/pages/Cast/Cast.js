@@ -1,14 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import { MovieCard } from 'components/MovieCard/MovieCard';
 import { MovieNav } from 'components/MovieNav/MovieNav';
 import { CastList } from 'components/CastList/CastList';
+import { ButtonGoBack } from 'components/ButtonGoBack/ButtonGoBack';
 
 export function CastPage() {
   return (
     <div>
-      <Link to="/">Go back</Link>
+      <ButtonGoBack />
       <MovieCard />
       <MovieNav />
       <div>

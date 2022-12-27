@@ -1,12 +1,11 @@
-import { Link } from 'react-router-dom';
-
 import { MovieCard } from 'components/MovieCard/MovieCard';
 import { MovieNav } from 'components/MovieNav/MovieNav';
+import { ButtonGoBack } from 'components/ButtonGoBack/ButtonGoBack';
 
 export function MovieDetailsPage() {
   return (
     <div>
-      <Link to="/">Go back</Link>
+      <ButtonGoBack />
       <MovieCard />
       <MovieNav />
     </div>

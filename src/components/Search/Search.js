@@ -1,6 +1,9 @@
-import React from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 export function Search({ onSearch }) {
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('query');
+
   function onSubmit(e) {
     e.preventDefault();
     const { query } = e.target;
@@ -9,7 +12,7 @@ export function Search({ onSearch }) {
 
   return (
     <form onSubmit={onSubmit}>
-      <input type="text" name="query" />
+      <input type="text" name="query" defaultValue={query} />
       <button type="Submit">Search</button>
     </form>
   );
