@@ -22,7 +22,7 @@ export function MoviesPage() {
   }
 
   useEffect(() => {
-    fetchMovies(query);
+    query?.length > 1 && fetchMovies(query);
   }, [query]);
 
   return (
