@@ -1,4 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export function Search({ onSearch }) {
   const [searchParams] = useSearchParams();
@@ -17,3 +18,7 @@ export function Search({ onSearch }) {
     </form>
   );
 }
+
+Search.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};

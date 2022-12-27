@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export function MovieList({ movies }) {
   return (
@@ -14,3 +15,7 @@ export function MovieList({ movies }) {
     </div>
   );
 }
+
+MovieList.propTypes = {
+  movies: PropTypes.array.isRequired,
+};
