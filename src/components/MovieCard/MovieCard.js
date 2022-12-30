@@ -1,67 +1,57 @@
-import { useEffect, useState, useCallback } from 'react';
-import axios from 'axios';
-import { API_KEY, API_URL } from 'utils/env';
 import { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export function MovieCard() {
-  const { movieId } = useParams();
-
-  const [movie, setMovie] = useState(null);
-
-  const fetchMovie = useCallback(() => {
-    axios
-      .get(`${API_URL}/movie/${movieId}?api_key=${API_KEY}`)
-      .then(res => {
-        setMovie(res.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }, [movieId]);
-
-  useEffect(() => {
-    fetchMovie();
-  }, [fetchMovie]);
-
+export function MovieCard({
+  releaseDate,
+  voteAverage,
+  genres,
+  posterPath,
+  title,
+  overview,
+}) {
   const year = useMemo(() => {
-    if (!movie || !movie.release_date) return '';
+    if (!releaseDate) return '';
 
-    return `(${movie.release_date.split('-')[0]})`;
-  }, [movie]);
+    return `(${releaseDate.split('-')[0]})`;
+  }, [releaseDate]);
 
   const userScore = useMemo(() => {
-    if (!movie || !movie.vote_average) return '';
+    if (!voteAverage) return '';
 
-    return Math.round(movie.vote_average * 10);
-  }, [movie]);
+    return Math.round(voteAverage * 10);
+  }, [voteAverage]);
 
-  const genres = useMemo(() => {
-    if (!movie || !movie.genres) return '';
-    return movie.genres.map(genre => genre.name).join(', ');
-  }, [movie]);
+  const actors = useMemo(() => {
+    if (!genres) return '';
 
-  if (!movie) return null;
+    return genres.map(genre => genre.name).join(', ');
+  }, [genres]);
 
   return (
     <div>
       <div>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-        />
+        <img src={`https://image.tmdb.org/t/p/w500${posterPath}`} alt={title} />
       </div>
       <div>
         <h2>
-          {movie.title}
+          {title}
           {year}
         </h2>
         {userScore && <div>User score: {userScore}%</div>}
         <div>Overview</div>
-        <div>{movie.overview}</div>
+        <div>{overview}</div>
         <div>Genres</div>
-        <div>{genres}</div>
+        <div>{actors}</div>
       </div>
     </div>
   );
 }
+
+MovieCard.propTypes = {
+  releaseDate: PropTypes.string,
+  voteAverage: PropTypes.number,
+  genres: PropTypes.array,
+  posterPath: PropTypes.string,
+  title: PropTypes.string,
+  overview: PropTypes.string,
+};

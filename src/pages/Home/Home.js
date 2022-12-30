@@ -1,25 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-
-import { API_KEY, API_URL } from 'utils/env';
+import { API } from 'utils/api';
 
 export function HomePage() {
   const [movies, setMovies] = useState([]);
 
-  function fetchTrending() {
-    axios
-      .get(`${API_URL}/trending/movie/day?api_key=${API_KEY}`)
-      .then(res => {
-        setMovies(res.data.results);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-
   useEffect(() => {
-    fetchTrending();
+    API.fetchTrends().then(res => setMovies(res));
   }, []);
 
   return (

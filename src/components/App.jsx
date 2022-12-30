@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import {
   CastPage,
@@ -7,18 +7,21 @@ import {
   MoviesPage,
   ReviewsPage,
 } from '../pages';
-import { Header } from './Header/Header';
+import { Layout } from './Layout/Layout';
 
 export const App = () => {
   return (
     <div>
-      <Header />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/movies" element={<MoviesPage />} />
-        <Route path="/movies/:movieId" element={<MovieDetailsPage />} />
-        <Route path="/movies/:movieId/cast" element={<CastPage />} />
-        <Route path="/movies/:movieId/reviews" element={<ReviewsPage />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="movies" element={<MoviesPage />} />
+          <Route path="movies/:movieId" element={<MovieDetailsPage />}>
+            <Route path="cast" element={<CastPage />} />
+            <Route path="reviews" element={<ReviewsPage />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
       </Routes>
     </div>
   );

@@ -1,28 +1,7 @@
-import { useEffect, useState, useCallback } from 'react';
-import axios from 'axios';
-import { API_KEY, API_URL } from 'utils/env';
-import { useParams } from 'react-router-dom';
+import { EMPTY_AVATAR_URL } from 'utils/env';
+import PropTypes from 'prop-types';
 
-export function CastList() {
-  const { movieId } = useParams();
-
-  const [actors, setActors] = useState([]);
-
-  const fetchActors = useCallback(() => {
-    axios
-      .get(`${API_URL}/movie/${movieId}/credits?api_key=${API_KEY}`)
-      .then(res => {
-        setActors(res.data.cast);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }, [movieId]);
-
-  useEffect(() => {
-    fetchActors();
-  }, [fetchActors]);
-
+export function CastList({ actors }) {
   if (actors.lenght === 0) {
     return <div>Not actors</div>;
   }
@@ -31,14 +10,16 @@ export function CastList() {
     <ul>
       {actors.map(actor => (
         <li key={actor.id}>
-          {actor.profile_path && (
-            <div>
-              <img
-                src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
-                alt={actor.name}
-              />
-            </div>
-          )}
+          <div>
+            <img
+              src={
+                actor.profile_path
+                  ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
+                  : EMPTY_AVATAR_URL
+              }
+              alt={actor.name}
+            />
+          </div>
           <div>
             <div>{actor.name}</div>
             <div>Character: {actor.character}</div>
@@ -48,3 +29,7 @@ export function CastList() {
     </ul>
   );
 }
+
+CastList.propTypes = {
+  actors: PropTypes.array.isRequired,
+};

@@ -1,29 +1,7 @@
-import { useEffect, useState, useCallback } from 'react';
-import axios from 'axios';
-import { API_KEY, API_URL } from 'utils/env';
-import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export function Reviews() {
-  const { movieId } = useParams();
-
-  const [reviews, setReviews] = useState([]);
-
-  const fetchReviews = useCallback(() => {
-    axios
-      .get(`${API_URL}/movie/${movieId}/reviews?api_key=${API_KEY}`)
-      .then(res => {
-        setReviews(res.data.results);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }, [movieId]);
-
-  useEffect(() => {
-    fetchReviews();
-  }, [fetchReviews]);
-
-  if (reviews.lenght === 0) {
+export function Reviews({ reviews }) {
+  if (reviews.length === 0) {
     return <div>Not reviews</div>;
   }
 
@@ -40,3 +18,7 @@ export function Reviews() {
     </div>
   );
 }
+
+Reviews.propTypes = {
+  reviews: PropTypes.array,
+};

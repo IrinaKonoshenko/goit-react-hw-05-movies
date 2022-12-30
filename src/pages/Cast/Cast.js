@@ -1,19 +1,19 @@
-import React from 'react';
-
-import { MovieCard } from 'components/MovieCard/MovieCard';
-import { MovieNav } from 'components/MovieNav/MovieNav';
+import React, { useEffect, useState } from 'react';
 import { CastList } from 'components/CastList/CastList';
-import { ButtonGoBack } from 'components/ButtonGoBack/ButtonGoBack';
+import { API } from 'utils/api';
+import { useParams } from 'react-router-dom';
 
 export function CastPage() {
+  const { movieId } = useParams();
+  const [actors, setActors] = useState([]);
+
+  useEffect(() => {
+    API.fetchCast(movieId).then(res => setActors(res));
+  }, [movieId]);
+
   return (
     <div>
-      <ButtonGoBack />
-      <MovieCard />
-      <MovieNav />
-      <div>
-        <CastList />
-      </div>
+      <CastList actors={actors} />
     </div>
   );
 }
