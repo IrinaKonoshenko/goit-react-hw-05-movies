@@ -1,7 +1,8 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export function ButtonGoBack() {
-  const navigate = useNavigate();
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/products';
 
-  return <button onClick={() => navigate(-1)}>go back</button>;
+  return <Link to={backLinkHref}>Go back </Link>;
 }
